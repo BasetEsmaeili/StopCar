@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">FindMyCar</string>
+    <string name="car_image">عکس خودرو</string>
+    <string name="hint_carName">نام خودرو</string>
+    <string name="hint_carPlaque">پلاک</string>
+    <string name="hint_carModel">سال تولید</string>
+    <string name="hint_carColor">رنگ</string>
+    <string name="select_car_color">انتخاب رنگ خودرو</string>
+    <string name="ok">تایید</string>
+    <string name="cancel">انصراف</string>
+    <string name="add_new_car">اضافه کردن خودرو</string>
+    <string name="all_places_be_completed">لطفا همه ی قسمت ها را کامل کنید</string>
+    <string name="add_new_parkPlace">افزودن محل پارک جدید</string>
+    <string name="plaque">پلاک</string>
+    <string name="ir_code">ایران</string>
+    <string name="date">تاریخ</string>
+    <string name="clock">ساعت</string>
+    <string name="iran">ایران</string>
+    <string name="confirm">ثبت</string>
+    <string-array name="colors">
+        <item>رنگ</item>
+        <item>سفید</item>
+        <item>مشکی</item>
+        <item>نقره ای</item>
+        <item>خاکستری</item>
+        <item>سفید صدفی</item>
+        <item>نوک مدادی</item>
+        <item>قهوه ای</item>
+        <item>آبی</item>
+        <item>قرمز</item>
+        <item>سرمه ای</item>
+        <item>بژ</item>
+        <item>آبی نفتی</item>
+        <item>یشمی</item>
+        <item>تیتانیوم</item>
+        <item>آلبالویی</item>
+        <item>سبز</item>
+        <item>سربی</item>
+        <item>مسی</item>
+        <item>زرد</item>
+        <item>دلفینی</item>
+        <item>بادمجانی</item>
+        <item>نقرآبی</item>
+        <item>زیتونی</item>
+        <item>گیلاسی</item>
+        <item>نارنجی</item>
+        <item>زرشکی</item>
+        <item>طوسی</item>
+        <item>اطلسی</item>
+        <item>کربن بلک</item>
+        <item>طلائی</item>
+        <item>برنز</item>
+        <item>عنابی</item>
+        <item>موکا</item>
+        <item>صورتی</item>
+        <item>بنفش</item>
+        <item>پوست پیازی</item>
+        <item>یاسی</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="location">آدرس</string>
+    <string name="select">انتخاب</string>
+    <string name="location_permission_diened">برای یافتن موقعیت مکانی اجازه دسترسی نیاز است</string>
+    <string name="car_location">موقعیت ماشین من</string>
+    <string name="parked_place_detail">جزئیات محل پارک</string>
+    <string name="location_not_detected">موقعیت مکانی شما تشخیص داده نشده است</string>
+    <string name="please_enable_gps">لطفا مکان یاب خود را فعال نمایید</string>
+    <string name="enable">فعال کردن</string>
+    <string name="please_install_googlePlayService">خطا:اپلیکیشن PlayServices بر روی دستگاه شما نصب نیست</string>
+    <string name="error_find_location">خطا در پیدا کردن موقعیت مکانی</string>
+    <string name="user_location">موقعیت مکانی من</string>
+</resources>

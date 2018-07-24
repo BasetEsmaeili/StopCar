@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="4dp"
+              android:layout_marginRight="4dp"
+    android:layoutDirection="ltr"
+              android:layout_marginTop="4dp"
+              android:background="@drawable/shape_pelak"
+              android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="34dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/shape_flag_bg"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:background="#089622"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#fff"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#96080a"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="12dp"
+            android:gravity="left"
+            android:text="IR . IRAN"
+            android:textColor="#fff"
+            android:textSize="11sp"/>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edt_plaque"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:fontFamily="@font/font_sans"
+        android:gravity="center"
+        android:hint="365ب12"
+        android:inputType="text"
+        android:maxLength="6"
+        android:maxLines="1"
+        android:textSize="38dp"/>
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="#000"
+        />
+
+    <LinearLayout
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:layout_marginTop="2dp"
+            android:text="ایـــران"/>
+
+        <EditText
+            android:id="@+id/edt_irCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fontFamily="@font/font_sans"
+            android:gravity="center"
+            android:hint="11"
+            android:inputType="number"
+            android:maxLength="2"
+            android:maxLines="1"
+            android:textSize="38dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>
