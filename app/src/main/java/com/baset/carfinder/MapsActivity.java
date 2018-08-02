@@ -97,7 +97,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.my_map);
         mapFragment.getMapAsync(this);
-        setupLocationRequest();
         setupBottomSheet();
         setupPreferences();
         setupDialogContent();
@@ -183,7 +182,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setupLocationRequest();
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSIN_REQUEST_CODE);
             } else {
                setupLocationRequest();
@@ -221,7 +219,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupLocationRequest();
                 } else {
-                    showMessage(getResources().getString(R.string.error_find_location),TOAST,SHORT);
+                    showMessage(getResources().getString(R.string.location_permission_diened),SNACKBAR,SHORT);
                 }
                 break;
         }
@@ -296,7 +294,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
     }
     private void stopLocationUpdates() {
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        if (fusedLocationProviderClient!=null) {
+            fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        }
     }
     private void startLocationUpdates() {
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
@@ -308,13 +308,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 else if (duration.equals(LONG))
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                break;
             case SNACKBAR:
-                if (duration.equals(SHORT))
-                Snackbar.make(findViewById(R.id.map_root),message,Snackbar.LENGTH_SHORT).show();
-                else if (duration.equals(LONG))
-                    Snackbar.make(findViewById(R.id.map_root),message,Snackbar.LENGTH_LONG).show();
-                else if (duration.equals(INDEFINITE))
-                    Snackbar.make(findViewById(R.id.map_root),message,Snackbar.LENGTH_INDEFINITE).show();
+                switch (duration) {
+                    case SHORT:
+                        Snackbar.make(findViewById(R.id.map_root), message, Snackbar.LENGTH_SHORT).show();
+                        break;
+                    case LONG:
+                        Snackbar.make(findViewById(R.id.map_root), message, Snackbar.LENGTH_LONG).show();
+                        break;
+                    case INDEFINITE:
+                        Snackbar.make(findViewById(R.id.map_root), message, Snackbar.LENGTH_INDEFINITE).show();
+                        break;
+                }
         }
     }
 }
