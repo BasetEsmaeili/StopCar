@@ -57,7 +57,7 @@ import java.util.List;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, Constants{
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, Constants, GoogleMap.OnMyLocationButtonClickListener {
 
     private GoogleMap mMap;
     private Toolbar toolbar;
@@ -81,11 +81,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Marker carMarker;
     @Override
     protected void onStart() {
+        startLocationUpdates();
         super.onStart();
     }
-
     @Override
     protected void onResume() {
+        getLastLocation();
         super.onResume();
     }
 
@@ -138,6 +139,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
+
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     img_state_changer.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_keyboard_arrow_up_black_24dp));
@@ -180,15 +182,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.setOnMyLocationButtonClickListener(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSIN_REQUEST_CODE);
             } else {
                setupLocationRequest();
+               startLocationUpdates();
             }
 
         } else {
             setupLocationRequest();
+            startLocationUpdates();
         }
     }
 
@@ -218,6 +224,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             case LOCATION_PERMISSIN_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     setupLocationRequest();
+                    startLocationUpdates();
                 } else {
                     showMessage(getResources().getString(R.string.location_permission_diened),SNACKBAR,SHORT);
                 }
@@ -273,6 +280,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onPause();
 
     }
+
+    @Override
+    protected void onStop() {
+        stopLocationUpdates();
+        super.onStop();
+    }
+
     private void getLastLocation() {
         fusedLocationProviderClient.getLastLocation()
                 .addOnCompleteListener(MapsActivity.this, new OnCompleteListener<Location>() {
@@ -322,5 +336,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         break;
                 }
         }
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        getLastLocation();
+        return true;
     }
 }
