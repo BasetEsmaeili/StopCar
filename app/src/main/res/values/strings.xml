@@ -63,10 +63,10 @@
     <string name="location_permission_diened">برای یافتن موقعیت مکانی اجازه دسترسی نیاز است</string>
     <string name="car_location">موقعیت ماشین من</string>
     <string name="parked_place_detail">جزئیات محل پارک</string>
-    <string name="location_not_detected">موقعیت مکانی شما تشخیص داده نشده است</string>
+    <string name="location_not_detected">موقعیت مکانی شما شناسایی نشده است</string>
     <string name="please_enable_gps">لطفا مکان یاب خود را فعال نمایید</string>
     <string name="enable">فعال کردن</string>
     <string name="please_install_googlePlayService">خطا:اپلیکیشن PlayServices بر روی دستگاه شما نصب نیست</string>
-    <string name="error_find_location">خطا در پیدا کردن موقعیت مکانی</string>
+    <string name="error_find_location"> خطا در پیدا کردن موقعیت مکانی لطفا روشن بودن مکان یاب را برسی نمایید</string>
     <string name="user_location">موقعیت مکانی من</string>
 </resources>

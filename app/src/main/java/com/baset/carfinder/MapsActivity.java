@@ -25,6 +25,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,10 +41,12 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -79,15 +82,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
     private Marker carMarker;
+    private double carLatForSend;
+    private double carLngForSend;
+    private String str_carLatForSend;
+    private String str_carLngForSend;
+
     @Override
     protected void onStart() {
-        startLocationUpdates();
         super.onStart();
+        startLocationUpdates();
     }
     @Override
     protected void onResume() {
-        getLastLocation();
         super.onResume();
+        if (fusedLocationProviderClient != null) {
+            getLastLocation();
+        }
     }
 
     @Override
@@ -95,12 +105,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setupViews();
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.my_map);
-        mapFragment.getMapAsync(this);
+        init();
         setupBottomSheet();
         setupPreferences();
         setupDialogContent();
+    }
+
+    private void init() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.my_map);
+        mapFragment.getMapAsync(this);
     }
 
     private void setupDialogContent() {
@@ -233,25 +247,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setupLocationRequest() {
+        doneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleDoneBtn();
+            }
+        });
         try {
             fusedLocationProviderClient=LocationServices.getFusedLocationProviderClient(getBaseContext());
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
              if (location!=null){
-                 carMarker=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())).snippet(
+                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_MAP_ZOOM);
+                 mMap.animateCamera(cameraUpdate);
+                 carMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).title(
                          getResources().getString(R.string.car_location)
                  ));
                  carMarker.setTag(CAR_LOCATION_TAG);
                  setupParkedPlaceAddress(location.getLatitude(),location.getLongitude());
              }else {
-                 showMessage(getResources().getString(R.string.error_find_location),TOAST,SHORT);
+                 showMessage(getResources().getString(R.string.error_find_location), SNACKBAR, SHORT);
              }
                 }
             });
             locationRequest=LocationRequest.create();
-            locationRequest.setInterval(1000);
-            locationRequest.setFastestInterval(1000);
+            locationRequest.setInterval(500);
+            locationRequest.setFastestInterval(500);
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             locationCallback=new LocationCallback(){
                 @Override
@@ -260,8 +283,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         if (carMarker!=null){
                             carMarker.remove();
                         }
+                        carLatForSend = location.getLatitude();
+                        carLngForSend = location.getLongitude();
+                        str_carLatForSend = Double.toString(location.getLatitude());
+                        str_carLngForSend = Double.toString(location.getLongitude());
                         carMarker=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude()
-                        )).snippet(getResources().getString(R.string.car_location)));
+                        )).icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).title(getResources().getString(R.string.car_location)));
                         carMarker.setTag(CAR_LOCATION_TAG);
                         setupParkedPlaceAddress(location.getLatitude(),location.getLongitude());
                     }
@@ -271,6 +298,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             ex.printStackTrace();
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    private void handleDoneBtn() {
+        if (str_carLatForSend != null && str_carLngForSend != null) {
+            Intent intent = new Intent();
+            intent.putExtra(KEY_CAR_NAME_RESULT, carName);
+            intent.putExtra(KEY_CAR_Color_RESULT, carColor);
+            intent.putExtra(KEY_CAR_PLAQUE_RESULT, cPlaque.getText().toString());
+            intent.putExtra(KEY_CAR_DATE_PARK_RESULT, pDate.getText().toString());
+            intent.putExtra(KEY_CAR_CLOCK_PARK_RESULT, pClock.getText().toString());
+            intent.putExtra(KEY_CAR_PARK_ADDRESS_RESULT, pLocation.getText().toString());
+            intent.putExtra(KEY_LATITUDE_RESULT, carLatForSend);
+            intent.putExtra(KEY_LONGITUDE_RESULT, carLngForSend);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            showMessage(getResources().getString(R.string.location_not_detected), SNACKBAR, LONG);
         }
     }
 
@@ -297,12 +342,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             if (carMarker!=null){
                                 carMarker.remove();
                             }
-                            carMarker=mMap.addMarker(new MarkerOptions().position(new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude())).snippet(getResources()
+                            LatLng latLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
+                                    latLng, DEFAULT_MAP_ZOOM);
+                            mMap.animateCamera(cameraUpdate);
+                            carMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude())).icon(BitmapDescriptorFactory
+                                    .fromResource(R.drawable.car_marker)).title(getResources()
                             .getString(R.string.car_location)));
                             carMarker.setTag(CAR_LOCATION_TAG);
                             setupParkedPlaceAddress(lastLocation.getLatitude(),lastLocation.getLongitude());
                         } else {
-                            showMessage(getResources().getString(R.string.error_find_location),TOAST,SHORT);
+                            showMessage(getResources().getString(R.string.error_find_location), SNACKBAR, SHORT);
                         }
                     }
                 });
@@ -313,15 +363,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
     private void startLocationUpdates() {
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+        if (fusedLocationProviderClient != null) {
+            fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
+        }
     }
-    private  void showMessage(String message,String type,String duration){
+
+    public void showMessage(String message, String type, String duration) {
         switch (type){
             case TOAST:
                 if (duration.equals(SHORT))
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
                 else if (duration.equals(LONG))
-                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT).show();
                 break;
             case SNACKBAR:
                 switch (duration) {

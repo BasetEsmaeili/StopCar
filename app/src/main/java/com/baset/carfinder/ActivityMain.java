@@ -19,12 +19,18 @@ import saman.zamani.persiandate.PersianDateFormat;
 public class ActivityMain extends AppCompatActivity implements View.OnClickListener, Constants {
     private Toolbar toolbar;
     private FloatingActionButton actionButton;
+    private SqliteHelper sqliteHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
         setupViews();
         setupToolbar();
+    }
+
+    private void init() {
+        sqliteHelper = new SqliteHelper(this);
     }
 
     private void setupViews() {
@@ -41,10 +47,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.float_addNewParking:
-
                     Intent intent = new Intent(getBaseContext(), MapsActivity.class);
                     startActivityForResult(intent, LAT_LNG_INTENT_REQUEST_CODE);
-
                 break;
         }
     }
@@ -57,7 +61,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                 if (resultCode==RESULT_OK){
                     double latitude=data.getDoubleExtra(KEY_LATITUDE_RESULT,0);
                     double longitude=data.getDoubleExtra(KEY_LONGITUDE_RESULT,0);
-                    Toast.makeText(this, "موقعیت شما"+latitude+","+longitude, Toast.LENGTH_SHORT).show();
+                    String address = data.getStringExtra(KEY_CAR_PARK_ADDRESS_RESULT);
+                    Toast.makeText(this, address, Toast.LENGTH_SHORT).show();
                 }
         }
     }
