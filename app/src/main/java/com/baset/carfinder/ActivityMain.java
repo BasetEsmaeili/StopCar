@@ -59,10 +59,14 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         switch (requestCode){
             case LAT_LNG_INTENT_REQUEST_CODE:
                 if (resultCode==RESULT_OK){
-                    double latitude=data.getDoubleExtra(KEY_LATITUDE_RESULT,0);
-                    double longitude=data.getDoubleExtra(KEY_LONGITUDE_RESULT,0);
-                    String address = data.getStringExtra(KEY_CAR_PARK_ADDRESS_RESULT);
-                    Toast.makeText(this, address, Toast.LENGTH_SHORT).show();
+                    String carName = data.getStringExtra(KEY_CAR_NAME_RESULT);
+                    String carColor = data.getStringExtra(KEY_CAR_Color_RESULT);
+                    String carPlaque = data.getStringExtra(KEY_CAR_PLAQUE_RESULT);
+                    String parkDate = data.getStringExtra(KEY_CAR_DATE_PARK_RESULT);
+                    String parkClock = data.getStringExtra(KEY_CAR_CLOCK_PARK_RESULT);
+                    String parkAddress = data.getStringExtra(KEY_CAR_PARK_ADDRESS_RESULT);
+                    double latitude = data.getDoubleExtra(KEY_LATITUDE_RESULT, 0);
+                    double longitude = data.getDoubleExtra(KEY_LONGITUDE_RESULT, 0);
                 }
         }
     }
