@@ -67,6 +67,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                     String parkAddress = data.getStringExtra(KEY_CAR_PARK_ADDRESS_RESULT);
                     double latitude = data.getDoubleExtra(KEY_LATITUDE_RESULT, 0);
                     double longitude = data.getDoubleExtra(KEY_LONGITUDE_RESULT, 0);
+                    sqliteHelper.insertHistory(carName, carColor, carPlaque, parkDate, parkClock, parkAddress, latitude, longitude);
+
                 }
         }
     }

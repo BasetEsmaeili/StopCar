@@ -19,8 +19,8 @@ public class ModelParkHistory {
     public static final String CAR_DATE_PARK = "carDatePark";
     public static final String CAR_CLOCK_PARK = "carClockPark";
     public static final String CAR_PARK_ADDRESS = "carParkAddress";
-    public static final String CAR_PARK_LATITUDE = "carParkAddress";
-    public static final String CAR_PARK_LONGITUDE = "carParkAddress";
+    public static final String CAR_PARK_LATITUDE = "carParkLatitude";
+    public static final String CAR_PARK_LONGITUDE = "carParkLongitude";
 
     public ModelParkHistory() {
     }
