@@ -1,9 +1,12 @@
-package com.baset.carfinder;
+package com.baset.carfinder.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-public class AdpaterParkedPlacesRv extends EmptyRecyclerView.Adapter<ViewHolderParkedPlacesRv> {
+import com.baset.carfinder.viewholder.ViewHolderParkedPlacesRv;
+
+public class AdpaterParkedPlacesRv extends RecyclerView.Adapter<ViewHolderParkedPlacesRv> {
     @NonNull
     @Override
     public ViewHolderParkedPlacesRv onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -1,4 +1,4 @@
-package com.baset.carfinder;
+package com.baset.carfinder.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,8 +18,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.baset.carfinder.constants.Constants;
+import com.baset.carfinder.R;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.baset.carfinder;
+package com.baset.carfinder.constants;
 
 public interface Constants {
     public static final int SPLASH_DURATION=4000;

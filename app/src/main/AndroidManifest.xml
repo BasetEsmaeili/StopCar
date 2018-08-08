@@ -13,13 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivitySplash"
+            android:name=".activity.ActivitySplash"
             android:theme="@style/AppThemeFullScreen"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ActivitySpecifications"
-            android:label="@string/add_new_car" />
-        <activity android:name=".ActivityMain"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,12 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ActivitySpecifications"
+            android:label="@string/add_new_car" />
+        <activity android:name=".activity.ActivityMain"
+            android:screenOrientation="portrait">
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${User_Location_Finder_DEBUG}" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"/>
     </application>

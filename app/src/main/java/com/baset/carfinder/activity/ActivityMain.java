@@ -1,20 +1,15 @@
-package com.baset.carfinder;
+package com.baset.carfinder.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
+import com.baset.carfinder.constants.Constants;
+import com.baset.carfinder.R;
+import com.baset.carfinder.database.SqliteHelper;
 
 public class ActivityMain extends AppCompatActivity implements View.OnClickListener, Constants {
     private Toolbar toolbar;

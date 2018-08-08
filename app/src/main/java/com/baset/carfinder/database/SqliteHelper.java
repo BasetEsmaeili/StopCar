@@ -1,4 +1,4 @@
-package com.baset.carfinder;
+package com.baset.carfinder.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,12 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.baset.carfinder.BuildConfig;
+import com.baset.carfinder.model.ModelParkHistory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SqliteHelper extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABSE_NAME = BuildConfig.APPLICATION_ID;
+    public static final int DATABASE_VERSION = 3;
+    public static final String DATABSE_NAME = BuildConfig.APPLICATION_ID+".db";
     public static final String CREATE_TABLE = "CREATE TABLE " + ModelParkHistory.TABLE_NAME + "("
             + ModelParkHistory.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + ModelParkHistory.CAR_NAME + " TEXT,"

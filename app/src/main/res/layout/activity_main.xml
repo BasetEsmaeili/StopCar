@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityMain">
+    tools:context=".activity.ActivityMain">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </android.support.design.widget.AppBarLayout>
-<com.baset.carfinder.EmptyRecyclerView
+<com.baset.carfinder.emptyRecyclerView.EmptyRecyclerView
     android:id="@+id/parked_places_rv"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_width="match_parent"

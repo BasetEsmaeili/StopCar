@@ -61,7 +61,7 @@
     <string name="location">آدرس</string>
     <string name="select">انتخاب</string>
     <string name="location_permission_diened">برای یافتن موقعیت مکانی اجازه دسترسی نیاز است</string>
-    <string name="car_location">موقعیت ماشین من</string>
+    <string name="car_location">محل پارک ماشین من</string>
     <string name="parked_place_detail">جزئیات محل پارک</string>
     <string name="location_not_detected">موقعیت مکانی شما شناسایی نشده است</string>
     <string name="please_enable_gps">لطفا مکان یاب خود را فعال نمایید</string>

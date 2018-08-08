@@ -1,4 +1,4 @@
-package com.baset.carfinder;
+package com.baset.carfinder.model;
 
 public class ModelParkHistory {
     private int id;

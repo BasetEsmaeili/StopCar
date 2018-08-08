@@ -1,4 +1,4 @@
-package com.baset.carfinder;
+package com.baset.carfinder.emptyRecyclerView;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
