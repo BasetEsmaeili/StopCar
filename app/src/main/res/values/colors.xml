@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196f3</color>
-    <color name="colorPrimaryDark">#0e87e7</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#4285F4</color>
+    <color name="colorPrimaryDark">#356AC3</color>
+    <color name="colorAccent">#689cf1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#6B9CF8</color>
     <color name="darker_gray">#9ccacaca</color>
     <color name="darker_gray_black">#939393</color>
     <color name="bg_date_parked">#4caf50</color>

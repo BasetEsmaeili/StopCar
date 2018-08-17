@@ -164,6 +164,8 @@
                 android:layout_weight="1"
                 android:text="درحال دریافت..."
                 android:gravity="left"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@android:color/black"/>
             <TextView
                 android:layout_width="0dp"

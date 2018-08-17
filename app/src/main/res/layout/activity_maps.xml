@@ -14,15 +14,9 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img_doneBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                app:srcCompat="@drawable/ic_done_white_24dp"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
-        </android.support.v7.widget.Toolbar>
+            android:layout_height="wrap_content"
+            map:title="@string/park_car"
+            map:titleTextColor="@android:color/white"/>
     </android.support.design.widget.AppBarLayout>
     <fragment
         android:id="@+id/my_map"
@@ -31,4 +25,21 @@
         android:layout_height="match_parent"
         map:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     <include layout="@layout/dialog_parked_place_dialog"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        map:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <ImageView
+            android:id="@+id/btn_myLocation"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            app:srcCompat="@drawable/ic_my_location_gray_24dp"
+            android:padding="8dp"
+            android:layout_gravity="right"
+            android:layout_margin="8dp"
+            android:onClick="onClick"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/bg_mylocation_btn"/>
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

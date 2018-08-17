@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,7 +39,6 @@ public class ActivitySpecifications extends AppCompatActivity implements Constan
     private Toolbar toolbar;
     private EditText carName;
     private String str_carName;
-    private ImageView img_save;
     private EditText irCode;
     private EditText plaque;
 
@@ -53,18 +54,19 @@ public class ActivitySpecifications extends AppCompatActivity implements Constan
     }
 
     private void setupPreference() {
-        if (carName.length() > 0 && carModel.getText().toString() != null && singleColor != null && irCode.length() > 0 && plaque.length() > 0){
+        if (!TextUtils.isEmpty(carName.getText().toString()) && !TextUtils.isEmpty(carModel.getText().toString()) && singleColor != null && !TextUtils.isEmpty(irCode.getText().toString())
+                && !TextUtils.isEmpty(plaque.getText().toString())) {
             SharedPreferences preferences = getSharedPreferences(getResources().getString(R.string.app_name), MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(KEY_PREFERENCE_CAR_NAME, carName.getText().toString());
             editor.putString(KEY_PREFERENCE_MODEL, carModel.getText().toString());
             editor.putString(KEY_PREFERENCE_COLOR, singleColor);
-            editor.putString(KEY_PREFERENCE_IR_CODE,irCode.getText().toString());
-            editor.putString(KEY_PREFERENCE_PLAQUE,plaque.getText().toString());
+            editor.putString(KEY_PREFERENCE_IR_CODE, irCode.getText().toString());
+            editor.putString(KEY_PREFERENCE_PLAQUE, plaque.getText().toString());
             editor.apply();
-            startActivity(new Intent(getBaseContext(),ActivityMain.class));
-        }else {
-            Snackbar.make(findViewById(R.id.specifications_root),getResources().getString(R.string.all_places_be_completed),Snackbar.LENGTH_SHORT).show();
+            startActivity(new Intent(getBaseContext(), ActivityMain.class));
+        } else {
+            Snackbar.make(findViewById(R.id.specifications_root), getResources().getString(R.string.all_places_be_completed), Snackbar.LENGTH_SHORT).show();
         }
 
 
@@ -121,7 +123,8 @@ public class ActivitySpecifications extends AppCompatActivity implements Constan
 
             }
         });
-        img_save.setOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_done_white_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setupPreference();
@@ -134,9 +137,8 @@ public class ActivitySpecifications extends AppCompatActivity implements Constan
         carModel = findViewById(R.id.tv_carModel);
         carColor = findViewById(R.id.sp_carColor);
         carName = findViewById(R.id.edt_carName);
-        img_save = findViewById(R.id.img_save);
-        irCode=findViewById(R.id.edt_irCode);
-        plaque=findViewById(R.id.edt_plaque);
+        irCode = findViewById(R.id.edt_irCode);
+        plaque = findViewById(R.id.edt_plaque);
     }
 
 }

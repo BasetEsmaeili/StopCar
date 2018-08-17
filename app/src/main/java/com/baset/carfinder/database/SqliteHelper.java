@@ -58,7 +58,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public List<ModelParkHistory> getAllNotes() {
+    public List<ModelParkHistory> getAllHistory() {
         List<ModelParkHistory> parkHistories = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + ModelParkHistory.TABLE_NAME + " ORDER BY " +
                 ModelParkHistory.CAR_DATE_PARK + " DESC";

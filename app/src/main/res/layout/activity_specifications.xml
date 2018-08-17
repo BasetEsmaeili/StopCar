@@ -14,41 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:subtitleTextColor="@android:color/white"
-        app:titleTextColor="@android:color/white">
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:weightSum="2"
-       android:orientation="horizontal"
-       android:layoutDirection="ltr">
-       <LinearLayout
-           android:layout_weight="1"
-           android:layout_width="0dp"
-           android:gravity="center_vertical"
-           android:layout_height="match_parent">
-           <ImageView
-               android:id="@+id/img_save"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="left"
-               android:layout_marginLeft="18dp"
-               android:clickable="true"
-               android:background="?attr/selectableItemBackgroundBorderless"
-               app:srcCompat="@drawable/ic_done_white_24dp"/>
-       </LinearLayout>
-       <LinearLayout
-           android:layout_width="0dp"
-           android:layout_height="match_parent"
-           android:layout_weight="1"
-           android:layout_gravity="center_vertical">
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:text="@string/add_new_car"
-               android:textColor="@android:color/white"
-               android:textSize="18dp"/>
-       </LinearLayout>
-   </LinearLayout>
+        app:titleTextColor="@android:color/white"
+        app:title="@string/add_new_car">
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.AppBarLayout>
     <ScrollView
@@ -88,7 +55,8 @@
                     android:id="@+id/sp_carColor"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog"/>
             </LinearLayout>
             <include layout="@layout/pelak"
                 android:layout_width="match_parent"

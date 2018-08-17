@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baset.carfinder">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".ApplicationLoader"
@@ -14,8 +15,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.ActivitySplash"
-            android:theme="@style/AppThemeFullScreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,9 +26,10 @@
         <activity
             android:name=".activity.ActivitySpecifications"
             android:label="@string/add_new_car" />
-        <activity android:name=".activity.ActivityMain"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".activity.ActivityMain"
+            android:screenOrientation="portrait"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${User_Location_Finder_DEBUG}" />
@@ -35,7 +37,10 @@
         <activity
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ActivityDirections"
+            android:label="@string/title_activity_directions"></activity>
     </application>
 
 </manifest>

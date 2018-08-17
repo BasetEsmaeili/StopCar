@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/font_sans</item>
         <item name="fontFamily">@font/font_sans</item>
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
     <style name="AppThemeFullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>

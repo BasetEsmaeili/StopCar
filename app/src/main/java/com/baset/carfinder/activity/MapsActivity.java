@@ -47,11 +47,10 @@ import java.util.List;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, Constants, GoogleMap.OnMyLocationButtonClickListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, Constants,View.OnClickListener {
 
     private GoogleMap mMap;
     private Toolbar toolbar;
-    private ImageView doneBtn;
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageView img_state_changer;
     private String carName;
@@ -73,6 +72,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private double carLngForSend;
     private String str_carLatForSend;
     private String str_carLngForSend;
+    private ImageView myLocationBtn;
 
     @Override
     protected void onStart() {
@@ -92,10 +92,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setupViews();
+        setupToolbar();
         init();
         setupBottomSheet();
         setupPreferences();
         setupDialogContent();
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getBaseContext(),R.drawable.ic_done_white_24dp));
     }
 
     private void init() {
@@ -109,11 +115,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         cColor.setText(carColor);
         cPlaque.setText(getResources().getString(R.string.iran) + irCode + " " + carPlaque);
         PersianDate persianDate = new PersianDate();
-        PersianDateFormat dateFormat = new PersianDateFormat("Y/m/d");
-        String date = dateFormat.format(persianDate);
-        PersianDateFormat dayNameFormat = new PersianDateFormat("l");
-        String dayName = dayNameFormat.format(persianDate);
-        pDate.setText(dayName + " " + date);
+        PersianDateFormat dateFormat = new PersianDateFormat("l j F");
+        String date=dateFormat.format(persianDate);
+        pDate.setText(date);
         PersianDateFormat clockFormat = new PersianDateFormat("H:i");
         String clock = clockFormat.format(persianDate);
         pClock.setText(clock);
@@ -170,7 +174,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void setupViews() {
         toolbar = findViewById(R.id.toolbar);
-        doneBtn = findViewById(R.id.img_doneBtn);
         img_state_changer = findViewById(R.id.dialog_placeDetail_changeState);
         cName = findViewById(R.id.dialog_placeDetail_cName);
         cColor = findViewById(R.id.dialog_placeDetail_cColor);
@@ -178,13 +181,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         pDate = findViewById(R.id.dialog_placeDetail_pDate);
         pClock = findViewById(R.id.dialog_placeDetail_pClock);
         pLocation = findViewById(R.id.dialog_placeDetail_pLocation);
+        myLocationBtn=findViewById(R.id.btn_myLocation);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.setOnMyLocationButtonClickListener(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSIN_REQUEST_CODE);
@@ -234,12 +236,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setupLocationRequest() {
-        doneBtn.setOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleDoneBtn();
             }
         });
+
         try {
             fusedLocationProviderClient=LocationServices.getFusedLocationProviderClient(getBaseContext());
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -277,6 +280,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         carMarker=mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude()
                         )).icon(BitmapDescriptorFactory.fromResource(R.drawable.car_marker)).title(getResources().getString(R.string.car_location)));
                         carMarker.setTag(CAR_LOCATION_TAG);
+                        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_MAP_ZOOM);
+                        mMap.animateCamera(cameraUpdate);
                         setupParkedPlaceAddress(location.getLatitude(),location.getLongitude());
                     }
                 }
@@ -379,8 +385,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public boolean onMyLocationButtonClick() {
-        getLastLocation();
-        return true;
+    public void onClick(View v) {
+        int id=v.getId();
+switch (id){
+    case R.id.btn_myLocation:
+        setupLocationRequest();
+        break;
+}
+
     }
 }

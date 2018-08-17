@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FindMyCar</string>
+    <string name="app_name">استوپ‌کار</string>
     <string name="car_image">عکس خودرو</string>
     <string name="hint_carName">نام خودرو</string>
     <string name="hint_carPlaque">پلاک</string>
@@ -8,9 +8,9 @@
     <string name="select_car_color">انتخاب رنگ خودرو</string>
     <string name="ok">تایید</string>
     <string name="cancel">انصراف</string>
-    <string name="add_new_car">اضافه کردن خودرو</string>
+    <string name="add_new_car">ثبت مشخصات خودرو</string>
     <string name="all_places_be_completed">لطفا همه ی قسمت ها را کامل کنید</string>
-    <string name="add_new_parkPlace">افزودن محل پارک جدید</string>
+    <string name="add_new_parkPlace">پارک جدید</string>
     <string name="plaque">پلاک</string>
     <string name="ir_code">ایران</string>
     <string name="date">تاریخ</string>
@@ -61,12 +61,18 @@
     <string name="location">آدرس</string>
     <string name="select">انتخاب</string>
     <string name="location_permission_diened">برای یافتن موقعیت مکانی اجازه دسترسی نیاز است</string>
-    <string name="car_location">محل پارک ماشین من</string>
-    <string name="parked_place_detail">جزئیات محل پارک</string>
-    <string name="location_not_detected">موقعیت مکانی شما شناسایی نشده است</string>
+    <string name="car_location">موقعیت پارک خودرو</string>
+    <string name="parked_place_detail">اطلاعات محل پارک</string>
+    <string name="location_not_detected">موقعیت مکانی شما دردسترس نیست</string>
     <string name="please_enable_gps">لطفا مکان یاب خود را فعال نمایید</string>
     <string name="enable">فعال کردن</string>
     <string name="please_install_googlePlayService">خطا:اپلیکیشن PlayServices بر روی دستگاه شما نصب نیست</string>
-    <string name="error_find_location"> خطا در پیدا کردن موقعیت مکانی لطفا روشن بودن مکان یاب را برسی نمایید</string>
+    <string name="error_find_location"> خطا در پیدا کردن موقعیت مکانی لطفا اینترنت و مکان یاب را برسی نمایید</string>
     <string name="user_location">موقعیت مکانی من</string>
+    <string name="park_car">پارک خودرو</string>
+    <string name="parking_date">تاریخ پارک</string>
+    <string name="carplaque">شماره پلاک:</string>
+    <string name="title_activity_directions">Map</string>
+    <string name="please_wait">لطفا منتظر بمانید</string>
+    <string name="error_direction_request">خطا در مسیریابی</string>
 </resources>

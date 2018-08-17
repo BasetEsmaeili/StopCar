@@ -28,5 +28,11 @@ public interface Constants {
     public static final String LONG="long";
     public static final String SHORT="short";
     public static final String INDEFINITE="indefinite";
-    public static final int DEFAULT_MAP_ZOOM = 17;
+    public static final int DEFAULT_MAP_ZOOM = 22;
+    public static final int DEFAULT_MAP_ZOOM_DIRECTION = 15;
+    public static final String KEY_DIRECTION_LATITUDE="key_latitude";
+    public static final String KEY_DIRECTION_LONGITUDE="key_longitude";
+    public static final String KEY_DIRECTION_DATE="key_date";
+    public static final String KEY_DIRECTION_CLOCK="key_clock";
+    public static final String KEY_DIRECTION_ADDRESS="key_clockaddress";
 }

@@ -9,10 +9,10 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-        manifestPlaceholders=[User_Location_Finder:UserLocationFinder]
-        manifestPlaceholders=[User_Location_Finder_DEBUG:UserLocationFinderDebug]
-        buildConfigField "String","USER_LOCATION",'"'+ UserLocationFinder+ '"'
-        buildConfigField "String","USER_LOCATION_DEBUG",'"'+ UserLocationFinderDebug+ '"'
+        manifestPlaceholders = [User_Location_Finder: UserLocationFinder]
+        manifestPlaceholders = [User_Location_Finder_DEBUG: UserLocationFinderDebug]
+        buildConfigField "String", "USER_LOCATION", '"' + UserLocationFinder + '"'
+        buildConfigField "String", "USER_LOCATION_DEBUG", '"' + UserLocationFinderDebug + '"'
     }
     buildTypes {
         release {
