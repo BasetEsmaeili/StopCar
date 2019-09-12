@@ -6,6 +6,7 @@ StopCar
 <br/>
 [![platform](https://img.shields.io/badge/Platform-Android-green?style=for-the-badge&logo=android)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat-square)](https://android-arsenal.com/api?level=16)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d2efcfac24a548dc9e2461393eb59de4)](https://www.codacy.com/manual/BasetEsmaeili/StopCar?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BasetEsmaeili/StopCar&amp;utm_campaign=Badge_Grade)
 
 # Introduction
 This is a repository of android open source application about parked car finder.
