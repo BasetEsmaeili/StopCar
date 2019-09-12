@@ -17,46 +17,6 @@
     <string name="clock">ساعت</string>
     <string name="iran">ایران</string>
     <string name="confirm">ثبت</string>
-    <string-array name="colors">
-        <item>رنگ</item>
-        <item>سفید</item>
-        <item>مشکی</item>
-        <item>نقره ای</item>
-        <item>خاکستری</item>
-        <item>سفید صدفی</item>
-        <item>نوک مدادی</item>
-        <item>قهوه ای</item>
-        <item>آبی</item>
-        <item>قرمز</item>
-        <item>سرمه ای</item>
-        <item>بژ</item>
-        <item>آبی نفتی</item>
-        <item>یشمی</item>
-        <item>تیتانیوم</item>
-        <item>آلبالویی</item>
-        <item>سبز</item>
-        <item>سربی</item>
-        <item>مسی</item>
-        <item>زرد</item>
-        <item>دلفینی</item>
-        <item>بادمجانی</item>
-        <item>نقرآبی</item>
-        <item>زیتونی</item>
-        <item>گیلاسی</item>
-        <item>نارنجی</item>
-        <item>زرشکی</item>
-        <item>طوسی</item>
-        <item>اطلسی</item>
-        <item>کربن بلک</item>
-        <item>طلائی</item>
-        <item>برنز</item>
-        <item>عنابی</item>
-        <item>موکا</item>
-        <item>صورتی</item>
-        <item>بنفش</item>
-        <item>پوست پیازی</item>
-        <item>یاسی</item>
-    </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="location">آدرس</string>
     <string name="select">انتخاب</string>

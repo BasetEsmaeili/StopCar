@@ -10,7 +10,6 @@ public interface Constants {
     public static final String KEY_PREFERENCE_IR_CODE="irCode";
     public static final int LOCATION_PERMISSIN_REQUEST_CODE=4323;
     public  static final int LAT_LNG_INTENT_REQUEST_CODE=3476;
-    //<editor-fold desc="ResultKEys">
     public static final String KEY_CAR_NAME_RESULT = "carName_result";
     public static final String KEY_CAR_Color_RESULT = "carColor_result";
     public static final String KEY_CAR_PLAQUE_RESULT = "carPlaque_result";
@@ -19,7 +18,6 @@ public interface Constants {
     public static final String KEY_CAR_PARK_ADDRESS_RESULT = "carParkAddress_result";
     public static final String KEY_LATITUDE_RESULT="latitude_result";
     public static final String KEY_LONGITUDE_RESULT="longitude_result";
-    //</editor-fold>
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST=4542;
     public static final String CAR_LOCATION_TAG="my_car_location";
     public static final String USER_LOCATION_TAG="user_location_tag";

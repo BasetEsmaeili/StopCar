@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -54,7 +53,6 @@ import wiadevelopers.com.directionlib.model.RouteInfo;
 import wiadevelopers.com.directionlib.util.MapUtils;
 
 public class ActivityDirections extends AppCompatActivity implements OnMapReadyCallback, Constants, View.OnClickListener {
-    private static final String TAG = "Direction Log:";
     private static int COLOR_WHITE;
     private static int COLOR_PRIMARY;
     private static final int NONE = 65;
@@ -65,7 +63,7 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
     private double intent_longitude;
     private String date;
     private String clock;
-    private String destenatioonAddress;
+    private String destinationAddress;
     private Toolbar toolbar;
     private Marker userLocation;
     private Marker carParkedLocation;
@@ -76,19 +74,20 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
     private FloatingActionButton btn_requestDirection;
     private TextView txtOrigin;
     private TextView txtDestination;
-    private RelativeLayout rltvDriving;
-    private RelativeLayout rltvWalking;
+    private RelativeLayout relativeDeriving;
+    private RelativeLayout relativeWalking;
     private ImageView imgDriving;
     private ImageView imgWalking;
     private TextView txtDriving;
     private TextView txtWalking;
-    private ArrayList<RouteInfo> routeInfosDriving = new ArrayList<>();
-    private ArrayList<Polyline> polylinesDriving = new ArrayList<>();
-    private ArrayList<RouteInfo> routeInfosWalking = new ArrayList<>();
-    private ArrayList<Polyline> polylinesWalking = new ArrayList<>();
+    private ArrayList<RouteInfo> routeInfoDriving = new ArrayList<>();
+    private ArrayList<Polyline> polylineDriving = new ArrayList<>();
+    private ArrayList<RouteInfo> routeInfoWalking = new ArrayList<>();
+    private ArrayList<Polyline> polylineWalking = new ArrayList<>();
     private ProgressBar progressBar;
     private int index = -1;
-    private String transportmode=TransportMode.DRIVING;
+    private String transportationMode = TransportMode.DRIVING;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -118,7 +117,7 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
     private void setupDirection() {
         txtDriving.setText("-");
         txtWalking.setText("-");
-        txtDestination.setText(destenatioonAddress);
+        txtDestination.setText(destinationAddress);
         COLOR_WHITE = ContextCompat.getColor(getBaseContext(), R.color.white);
         COLOR_PRIMARY = ContextCompat.getColor(getBaseContext(), R.color.colorPrimary);
         btn_requestDirection.setVisibility(View.GONE);
@@ -126,31 +125,31 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
 
 
     private void drawRoutes(int num) {
-        for (int i = 0; i < polylinesDriving.size(); i++)
-            polylinesDriving.get(i).remove();
+        for (int i = 0; i < polylineDriving.size(); i++)
+            polylineDriving.get(i).remove();
 
-        for (int i = 0; i < polylinesWalking.size(); i++)
-            polylinesWalking.get(i).remove();
+        for (int i = 0; i < polylineWalking.size(); i++)
+            polylineWalking.get(i).remove();
 
 
-        polylinesDriving.clear();
-        polylinesWalking.clear();
+        polylineDriving.clear();
+        polylineWalking.clear();
         switch (num) {
             case DRIVING:
-                for (int i = 0; i < routeInfosDriving.size(); i++) {
-                    Polyline polyline = mMap.addPolyline(routeInfosDriving.get(i).getPolylineOptions());
+                for (int i = 0; i < routeInfoDriving.size(); i++) {
+                    Polyline polyline = mMap.addPolyline(routeInfoDriving.get(i).getPolylineOptions());
                     polyline.setTag(i);
-                    polylinesDriving.add(polyline);
+                    polylineDriving.add(polyline);
 
                 }
 
                 break;
             case WALKING:
-                for (int i = 0; i < routeInfosWalking.size(); i++) {
-                    Polyline polyline = mMap.addPolyline(routeInfosWalking.get(i).getPolylineOptions());
+                for (int i = 0; i < routeInfoWalking.size(); i++) {
+                    Polyline polyline = mMap.addPolyline(routeInfoWalking.get(i).getPolylineOptions());
                     polyline.setPattern(MapUtils.getPattern(MapUtils.patternType.DOT));
                     polyline.setTag(i);
-                    polylinesWalking.add(polyline);
+                    polylineWalking.add(polyline);
 
                 }
 
@@ -162,18 +161,18 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
         if (userLocation != null && carParkedLocation != null) {
             btn_requestDirection.setVisibility(View.VISIBLE);
         }
-        rltvDriving.setOnClickListener(new View.OnClickListener() {
+        relativeDeriving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (routeInfosDriving.size() != 0) {
+                if (routeInfoDriving.size() != 0) {
                     activator(DRIVING);
                 }
             }
         });
-        rltvWalking.setOnClickListener(new View.OnClickListener() {
+        relativeWalking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (routeInfosWalking.size() != 0) {
+                if (routeInfoWalking.size() != 0) {
                     activator(WALKING);
                 }
             }
@@ -183,43 +182,42 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
             public void onPolylineClick(Polyline polyline) {
                 String tag = polyline.getTag().toString();
                 index = Integer.parseInt(tag);
-                if (transportmode.equals(TransportMode.DRIVING)){
-                    polylinesDriving.get(index).remove();
-                    final Polyline mPolyline = mMap.addPolyline(routeInfosDriving.get(index).getPolylineOptions());
+                if (transportationMode.equals(TransportMode.DRIVING)) {
+                    polylineDriving.get(index).remove();
+                    final Polyline mPolyline = mMap.addPolyline(routeInfoDriving.get(index).getPolylineOptions());
                     mPolyline.setTag(index);
-                    polylinesDriving.set(index, mPolyline);
-                    for (int i = 0; i < polylinesDriving.size(); i++) {
+                    polylineDriving.set(index, mPolyline);
+                    for (int i = 0; i < polylineDriving.size(); i++) {
                         if (i != index) {
-                            polylinesDriving.get(i).setColor(Direction.UNSELECTED_ROUTE);
+                            polylineDriving.get(i).setColor(Direction.UNSELECTED_ROUTE);
                         } else {
-                            polylinesDriving.get(i).setColor(Direction.SELECTED_ROUTE);
+                            polylineDriving.get(i).setColor(Direction.SELECTED_ROUTE);
                         }
 
                     }
-                    txtDriving.setText(routeInfosDriving.get(index).getDurationText());
-                }else if (transportmode.equals(TransportMode.WALKING)){
-                    polylinesWalking.get(index).remove();
-                    final Polyline mPolyline = mMap.addPolyline(routeInfosWalking.get(index).getPolylineOptions());
+                    txtDriving.setText(routeInfoDriving.get(index).getDurationText());
+                } else if (transportationMode.equals(TransportMode.WALKING)) {
+                    polylineWalking.get(index).remove();
+                    final Polyline mPolyline = mMap.addPolyline(routeInfoWalking.get(index).getPolylineOptions());
                     mPolyline.setTag(index);
                     mPolyline.setPattern(MapUtils.getPattern(MapUtils.patternType.DOT));
-                    polylinesWalking.set(index, mPolyline);
-                    for (int i = 0; i < polylinesWalking.size(); i++) {
+                    polylineWalking.set(index, mPolyline);
+                    for (int i = 0; i < polylineWalking.size(); i++) {
                         if (i != index) {
-                            polylinesWalking.get(i).setColor(Direction.UNSELECTED_ROUTE);
+                            polylineWalking.get(i).setColor(Direction.UNSELECTED_ROUTE);
                         } else {
-                            polylinesWalking.get(i).setColor(Direction.SELECTED_ROUTE);
+                            polylineWalking.get(i).setColor(Direction.SELECTED_ROUTE);
                         }
 
                     }
-                    txtWalking.setText(routeInfosWalking.get(index).getDurationText());
+                    txtWalking.setText(routeInfoWalking.get(index).getDurationText());
                 }
 
             }
         });
     }
 
-    private void drivengRequest() {
-        // TODO: 8/15/2018 Change afther release
+    private void drivingRequest() {
         progressBar.setVisibility(View.VISIBLE);
         GoogleDirection.withServerKey(BuildConfig.USER_LOCATION_DEBUG)
                 .from(userLocation.getPosition())
@@ -232,12 +230,11 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
                     public void onDirectionSuccess(Direction direction, String s) {
                         progressBar.setVisibility(View.GONE);
                         if (direction.isOK()) {
-                            routeInfosDriving = direction.getRouteInfo(ActivityDirections.this, 5);
+                            routeInfoDriving = direction.getRouteInfo(ActivityDirections.this, 5);
                             activator(DRIVING);
-                            txtDriving.setText(routeInfosDriving.get(routeInfosDriving.size() - 1).getDurationText());
+                            txtDriving.setText(routeInfoDriving.get(routeInfoDriving.size() - 1).getDurationText());
 
                         } else {
-                            Log.e(TAG, direction.getErrorMessage());
                             showMessage(getResources().getString(R.string.error_direction_request), SNACKBAR, SHORT);
                         }
                     }
@@ -250,7 +247,6 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
     }
 
     private void walkingRequest() {
-        // TODO: 8/15/2018 Change afther release
         progressBar.setVisibility(View.VISIBLE);
         GoogleDirection.withServerKey(BuildConfig.USER_LOCATION_DEBUG)
                 .from(userLocation.getPosition())
@@ -263,9 +259,9 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
                     public void onDirectionSuccess(Direction direction, String s) {
                         progressBar.setVisibility(View.GONE);
                         if (direction.isOK()) {
-                            routeInfosWalking = direction.getRouteInfo(ActivityDirections.this, 5);
+                            routeInfoWalking = direction.getRouteInfo(ActivityDirections.this, 5);
                             activator(WALKING);
-                            txtWalking.setText(routeInfosWalking.get(routeInfosWalking.size() - 1).getDurationText());
+                            txtWalking.setText(routeInfoWalking.get(routeInfoWalking.size() - 1).getDurationText());
                         }
                     }
 
@@ -280,35 +276,35 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
         PorterDuff.Mode mode = PorterDuff.Mode.SRC_IN;
         switch (num) {
             case NONE:
-                rltvWalking.setBackgroundResource(R.drawable.button_blue);
+                relativeWalking.setBackgroundResource(R.drawable.button_blue);
                 txtWalking.setTextColor(COLOR_WHITE);
                 imgWalking.setColorFilter(COLOR_WHITE, mode);
 
-                rltvDriving.setBackgroundResource(R.drawable.button_blue);
+                relativeDeriving.setBackgroundResource(R.drawable.button_blue);
                 txtDriving.setTextColor(COLOR_WHITE);
                 imgDriving.setColorFilter(COLOR_WHITE, mode);
                 break;
             case DRIVING:
-                rltvWalking.setBackgroundResource(R.drawable.button_blue);
+                relativeWalking.setBackgroundResource(R.drawable.button_blue);
                 txtWalking.setTextColor(COLOR_WHITE);
                 imgWalking.setColorFilter(COLOR_WHITE, mode);
 
-                rltvDriving.setBackgroundResource(R.drawable.button_white);
+                relativeDeriving.setBackgroundResource(R.drawable.button_white);
                 txtDriving.setTextColor(COLOR_PRIMARY);
                 imgDriving.setColorFilter(COLOR_PRIMARY, mode);
                 drawRoutes(DRIVING);
-                transportmode=TransportMode.DRIVING;
+                transportationMode = TransportMode.DRIVING;
                 break;
             case WALKING:
-                rltvWalking.setBackgroundResource(R.drawable.button_white);
+                relativeWalking.setBackgroundResource(R.drawable.button_white);
                 txtWalking.setTextColor(COLOR_PRIMARY);
                 imgWalking.setColorFilter(COLOR_PRIMARY, mode);
 
-                rltvDriving.setBackgroundResource(R.drawable.button_blue);
+                relativeDeriving.setBackgroundResource(R.drawable.button_blue);
                 txtDriving.setTextColor(COLOR_WHITE);
                 imgDriving.setColorFilter(COLOR_WHITE, mode);
                 drawRoutes(WALKING);
-                transportmode=TransportMode.WALKING;
+                transportationMode = TransportMode.WALKING;
                 break;
         }
     }
@@ -343,8 +339,8 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
         txtDriving = findViewById(R.id.txtDriving);
         imgDriving = findViewById(R.id.imgDriving);
         imgWalking = findViewById(R.id.imgWalking);
-        rltvDriving = findViewById(R.id.rltvDriving);
-        rltvWalking = findViewById(R.id.rltvWalking);
+        relativeDeriving = findViewById(R.id.rltvDriving);
+        relativeWalking = findViewById(R.id.rltvWalking);
         progressBar = findViewById(R.id.pgb_diraction);
     }
 
@@ -353,13 +349,13 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
         intent_longitude = getIntent().getDoubleExtra(KEY_DIRECTION_LONGITUDE, 0);
         date = getIntent().getStringExtra(KEY_DIRECTION_DATE);
         clock = getIntent().getStringExtra(KEY_DIRECTION_CLOCK);
-        destenatioonAddress = getIntent().getStringExtra(KEY_DIRECTION_ADDRESS);
+        destinationAddress = getIntent().getStringExtra(KEY_DIRECTION_ADDRESS);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        addcarParkLocation();
+        addCarParkLocation();
         setupLocationRequest();
         startLocationUpdates();
     }
@@ -412,7 +408,7 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
         }
     }
 
-    private void addcarParkLocation() {
+    private void addCarParkLocation() {
 
         carParkedLocation = mMap.addMarker(new MarkerOptions().position(new LatLng(intent_latitude, intent_longitude)).title(getResources().getString(R.string.car_location)).icon(BitmapDescriptorFactory.fromResource(
                 R.drawable.car_marker
@@ -493,7 +489,7 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
                 location = addresses.get(0).getLatitude() + " , " + addresses.get(0).getLongitude();
             txtOrigin.setText(location);
         } catch (IOException e
-                ) {
+        ) {
             e.printStackTrace();
         }
     }
@@ -519,7 +515,7 @@ public class ActivityDirections extends AppCompatActivity implements OnMapReadyC
                 getLastLocation();
                 break;
             case R.id.btnRequestDirection:
-                drivengRequest();
+                drivingRequest();
                 walkingRequest();
                 break;
         }

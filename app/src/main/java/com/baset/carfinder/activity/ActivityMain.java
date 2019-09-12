@@ -25,7 +25,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     private SqliteHelper sqliteHelper;
     private RecyclerView rv_history;
     private List<ModelParkHistory> parkHistories=new ArrayList<>();
-    private AdapterParkHistoryRv adpaterRv;
+    private AdapterParkHistoryRv parkHistoryAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +39,17 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     private void setupRecyclerView() {
         RecyclerView.LayoutManager manager=new LinearLayoutManager(getBaseContext(),LinearLayoutManager.VERTICAL,false);
         rv_history.setLayoutManager(manager);
-        rv_history.setAdapter(adpaterRv);
+        rv_history.setAdapter(parkHistoryAdapter);
        rv_history.addOnScrollListener(new RecyclerView.OnScrollListener() {
            @Override
            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                super.onScrolled(recyclerView, dx, dy);
                if (dy >0) {
-                   // Scroll Down
                    if (actionButton.isShown()) {
                        actionButton.hide();
                    }
                }
                else if (dy <0) {
-                   // Scroll Up
                    if (!actionButton.isShown()) {
                        actionButton.show();
                    }
@@ -63,7 +61,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
     private void init() {
         sqliteHelper = new SqliteHelper(this);
         parkHistories.addAll(sqliteHelper.getAllHistory());
-        adpaterRv=new AdapterParkHistoryRv(getBaseContext(),parkHistories,this);
+        parkHistoryAdapter = new AdapterParkHistoryRv(getBaseContext(), parkHistories, this);
     }
 
     private void setupViews() {
@@ -110,7 +108,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                     modelParkHistory.setDatePark(parkDate);
                     modelParkHistory.setClockPark(parkClock);
                     modelParkHistory.setAddress(parkAddress);
-                    adpaterRv.addItem(modelParkHistory);
+                    parkHistoryAdapter.addItem(modelParkHistory);
                 }
         }
     }

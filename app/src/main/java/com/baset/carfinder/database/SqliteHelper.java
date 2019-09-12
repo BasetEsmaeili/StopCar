@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SqliteHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 3;
-    public static final String DATABSE_NAME = BuildConfig.APPLICATION_ID+".db";
+    public static final String DATABSE_NAME = BuildConfig.APPLICATION_ID + ".db";
     public static final String CREATE_TABLE = "CREATE TABLE " + ModelParkHistory.TABLE_NAME + "("
             + ModelParkHistory.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + ModelParkHistory.CAR_NAME + " TEXT,"
@@ -84,21 +84,23 @@ public class SqliteHelper extends SQLiteOpenHelper {
     }
 
     public int getHistoryCount() {
-        String countquery = "SELECT * FROM " + ModelParkHistory.TABLE_NAME;
+        String count_query = "SELECT * FROM " + ModelParkHistory.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countquery, null);
+        Cursor cursor = db.rawQuery(count_query, null);
         int count = cursor.getCount();
         cursor.close();
         return count;
     }
 
-    public void deletHistory(ModelParkHistory parkHistory) {
+    public void deleteHistory(ModelParkHistory parkHistory) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ModelParkHistory.TABLE_NAME, ModelParkHistory.COLUMN_ID + " =? ", new String[]{String.valueOf(parkHistory.getId())});
+        db.close();
     }
 
-    public void deletAll() {
+    public void deleteAllRecords() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(ModelParkHistory.TABLE_NAME, null, null);
+        db.close();
     }
 }

@@ -28,17 +28,18 @@ import com.shawnlin.numberpicker.NumberPicker;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import saman.zamani.persiandate.PersianDate;
+
 public class ActivitySpecifications extends AppCompatActivity implements Constants {
     private String[] colors;
     private TextView carModel;
     private Context context;
     private Typeface typeface;
     private Spinner carColor;
-    private ArrayList<String> colors_array = new ArrayList<String>();
+    private ArrayList<String> colors_array = new ArrayList<>();
     private String singleColor;
     private Toolbar toolbar;
     private EditText carName;
-    private String str_carName;
     private EditText irCode;
     private EditText plaque;
 
@@ -82,12 +83,13 @@ public class ActivitySpecifications extends AppCompatActivity implements Constan
         carModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySpecifications.this);
                 View view = LayoutInflater.from(context).inflate(R.layout.dialog_car_model, null);
                 final NumberPicker carColorPicker = view.findViewById(R.id.carModel_NumberPicker);
-                carColorPicker.setMinValue(1370);
-                carColorPicker.setMaxValue(1400);
-                carColorPicker.setValue(1397);
+                carColorPicker.setMinValue(1360);
+                carColorPicker.setMaxValue(1490);
+                PersianDate persianDate = new PersianDate();
+                carColorPicker.setValue(persianDate.getShYear());
                 carColorPicker.setTypeface(typeface);
                 builder.setView(view);
                 builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
@@ -108,7 +110,7 @@ public class ActivitySpecifications extends AppCompatActivity implements Constan
                 alert11.show();
             }
         });
-        ArrayAdapter<String> sp_adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, colors);
+        ArrayAdapter<String> sp_adapter = new ArrayAdapter<>(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, colors);
         carColor.setAdapter(sp_adapter);
         colors_array.addAll(Arrays.asList(colors));
         carColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

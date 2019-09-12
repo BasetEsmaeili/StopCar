@@ -72,7 +72,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private double carLngForSend;
     private String str_carLatForSend;
     private String str_carLngForSend;
-    private ImageView myLocationBtn;
 
     @Override
     protected void onStart() {
@@ -181,7 +180,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         pDate = findViewById(R.id.dialog_placeDetail_pDate);
         pClock = findViewById(R.id.dialog_placeDetail_pClock);
         pLocation = findViewById(R.id.dialog_placeDetail_pLocation);
-        myLocationBtn=findViewById(R.id.btn_myLocation);
     }
 
     @Override
@@ -203,7 +201,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void setupParkedPlaceAddress(double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(getBaseContext());
-        List<Address> addresses = null;
+        List<Address> addresses;
         try {
             addresses = geocoder.getFromLocation(latitude,longitude, 1);
             String location = addresses.get(0).getThoroughfare();
