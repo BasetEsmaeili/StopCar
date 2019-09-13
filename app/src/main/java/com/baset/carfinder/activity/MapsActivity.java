@@ -261,8 +261,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             });
             locationRequest=LocationRequest.create();
-            locationRequest.setInterval(500);
-            locationRequest.setFastestInterval(500);
+            locationRequest.setInterval(2000);
+            locationRequest.setFastestInterval(2000);
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             locationCallback=new LocationCallback(){
                 @Override
