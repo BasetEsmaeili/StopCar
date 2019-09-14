@@ -49,4 +49,12 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 Email: baset.esmaili0@gmail.com
 
-Telegram: https://telegram.me/ikurdish
+[AndroidArsenal](https://android-arsenal.com/user/BasetEsmaeili)
+
+[Telegram](https://telegram.me/ikurdish)
+
+[LinkedIn](https://www.linkedin.com/in/baset-esmaeili/)
+
+[Instagram](https://www.instagram.com/esmaeili.baset/)
+
+[Gitlab](https://gitlab.com/Baset_esmaeili)
