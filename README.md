@@ -28,6 +28,12 @@ Experience with Android Studio, Java, RecyclerView, SQLite, Google Play Services
 [Retrofit](https://square.github.io/retrofit/)<br/>
 [PersianDate](https://github.com/samanzamani/PersianDate)<br/>
 [Number Picker](https://github.com/ShawnLin013/NumberPicker)<br/>
+##How to use?
+clone the project in android studio and create ```text gradle.properties ``` file in project root folder and assign this variables and put google map api key:
+```text
+UserLocationFinder="GoogleMap Release ApiKey"
+UserLocationFinderDebug="GoogleMap Debug Api Key"
+```
 # Licence
 Copyright 2019 Baset Esmaeili
 
